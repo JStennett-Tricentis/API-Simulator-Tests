@@ -1,0 +1,37 @@
+schema: SimV1
+name: default
+services:
+  - name: Spaces_Service
+    steps:
+      - connection:
+          endpoint: http://localhost:28888/internalApi/v1/tenants/fusionx/spaces
+          listen: false
+        direction: Out
+        insert:
+          - value: /internalApi/v1/tenants/fusionx/spaces
+        message:
+          method: GET
+          payload: ""
+        to: organization
+      - message:
+          headers:
+            - key: Date
+              value: Tue, 25 Feb 2025 15:19:12 GMT
+            - key: Server
+              value: Kestrel
+            - key: Content-Length
+              value: 156
+          payload: |-
+            [
+              {
+                "id": "default",
+                "isBuiltIn": true,
+                "name": "Defaultt",
+                "path": "Defaultt",
+                "description": "Default workspace of the tenant.",
+                "accessType": "Public",
+                "ownerId": ""
+              }
+            ]
+        verify:
+          - value: '[{"id":"default","isBuiltIn":true,"name":"Defaultt","path":"Defaultt","description":"Default workspace of the tenant.","accessType":"Public","ownerId":""}]'

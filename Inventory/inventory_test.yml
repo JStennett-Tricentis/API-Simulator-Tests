@@ -1,0 +1,35 @@
+schema: SimV1
+name: default
+services:
+  - name: Inventory_Service
+    steps:
+      - connection:
+          endpoint: http://localhost:28881/api/v3/artifacts/search?tenantId=fusionx&spaceId=default
+          listen: false
+        direction: Out
+        insert:
+          - type: Payload
+            value: /api/v3/artifacts/search?tenantId=fusionx&spaceId=default
+        message:
+          method: POST
+          payload: |-
+            /api/v3/artifacts/search?tenantId=fusionx&spaceId=default
+        to: inventory
+      - message:
+          headers:
+            - key: Date
+              value: Tue, 25 Feb 2025 15:28:41 GMT
+            - key: Server
+              value: Kestrel
+            - key: Content-Length
+              value: 136
+          payload: |-
+            {
+              "total": 0,
+              "items": [],
+              "previousPageToken": null,
+              "currentPageToken": "AAAABYim0poAAz/m+L37AwQAAAAAAAiLHwAAAAU=",
+              "nextPageToken": null
+            }
+        verify:
+          - value: '{"total":0,"items":[],"previousPageToken":null,"currentPageToken":"AAAABYim0poAAz/m\u002BL37AwQAAAAAAAiLHwAAAAU=","nextPageToken":null}'

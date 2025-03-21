@@ -1,0 +1,133 @@
+schema: SimV1
+name: execution
+
+connections:
+  - name: executionApi
+    port: 28884
+
+services:
+  - name: executionDetailsService
+    description: Simulates the Tosca Cloud Execution Details API
+    steps:
+      - direction: In
+        name: receiveExecutionDetailsRequest
+        trigger:
+          - type: Path
+            value: /api/v1/executions/d6ddeb82-58ca-4463-b8fc-70a6de81bee3
+          - type: Method
+            value: GET
+          - type: Query
+            key: tenantId
+            value: fusionx
+          - type: Query
+            key: spaceId
+            value: default
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestPayload
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+
+      - direction: Out
+        name: sendExecutionDetailsResponse
+        message:
+          statusCode: 200
+          headers:
+            - key: Content-Type
+              value: application/json
+            - key: Server
+              value: Kestrel
+          payload: |
+            {
+              "id": "d6ddeb82-58ca-4463-b8fc-70a6de81bee3",
+              "name": "Tosca On-prem Test Playlist",
+              "items": [
+                {
+                  "$type": "UnitV1",
+                  "id": "fc576413-6740-4e1a-90b7-e6e4147408b1",
+                  "artifactId": "b2bea531-a80a-4a99-87c6-c416c3a6f7bb",
+                  "name": "Open Google",
+                  "runner": "TBox",
+                  "correlationId": "d60f8ef0-7444-4558-a8a0-fb4a9e6ed580",
+                  "secretIds": [],
+                  "assignedAgentId": "Tricentis-c7b65e8f-5601-45ce-b27c-18b0c27add0e",
+                  "startedAt": "2025-01-17T17:49:42.803Z",
+                  "completedAt": "2025-01-17T17:49:52.074Z",
+                  "state": "succeeded",
+                  "characteristics": [
+                    {
+                      "name": "Runner",
+                      "value": "TBox"
+                    }
+                  ],
+                  "parameters": []
+                },
+                {
+                  "$type": "UnitV1",
+                  "id": "367148fe-9b74-40bf-a513-34fdce9ae285",
+                  "artifactId": "b2f87ac3-8716-459f-abac-2771e74f0913",
+                  "name": "Unnamed Test Case",
+                  "runner": "TBox",
+                  "correlationId": "d220212a-edea-48e4-98c3-7bd509d81896",
+                  "secretIds": [],
+                  "assignedAgentId": "Tricentis-c7b65e8f-5601-45ce-b27c-18b0c27add0e",
+                  "startedAt": "2025-01-17T17:49:52.494Z",
+                  "completedAt": "2025-01-17T17:50:00.36Z",
+                  "state": "succeeded",
+                  "characteristics": [
+                    {
+                      "name": "Runner",
+                      "value": "TBox"
+                    }
+                  ],
+                  "parameters": []
+                },
+                {
+                  "$type": "UnitV1",
+                  "id": "41da3a3c-a672-4f82-8404-0b93c0268136",
+                  "artifactId": "ad81c566-585f-4f2b-89ae-80c46bd7d6de",
+                  "name": "Tosca - GET Playlist Runs List",
+                  "runner": "TBox",
+                  "correlationId": "abc65d3e-2e52-45fd-8154-08be75412cc3",
+                  "secretIds": [],
+                  "assignedAgentId": "Tricentis-c7b65e8f-5601-45ce-b27c-18b0c27add0e",
+                  "startedAt": "2025-01-17T17:49:38.797Z",
+                  "completedAt": "2025-01-17T17:49:42.463Z",
+                  "state": "failed",
+                  "characteristics": [
+                    {
+                      "name": "Runner",
+                      "value": "TBox"
+                    }
+                  ],
+                  "parameters": []
+                }
+              ],
+              "characteristics": [],
+              "executionMode": "parallel",
+              "state": "failed",
+              "parameters": [],
+              "priority": 0,
+              "timeout": "12:00:00",
+              "private": false,
+              "source": "PlaylistV2",
+              "createdBy": "00u90zj2tmQA89tCs0x7",
+              "createdAt": "2025-01-17T17:49:38.298Z",
+              "updatedAt": "2025-01-17T17:50:00.36Z",
+              "unitExecutionsSummary": {
+                "pending": 0,
+                "running": 0,
+                "succeeded": 2,
+                "failed": 1,
+                "canceled": 0,
+                "queued": 0,
+                "canceling": 0,
+                "total": 3
+              }
+            }

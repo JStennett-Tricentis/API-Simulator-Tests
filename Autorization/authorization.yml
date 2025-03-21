@@ -1,0 +1,19 @@
+schema: SimV1
+name: default
+
+connections:
+  - name: authorization
+    port: 28887
+
+services:
+  - name: authorization
+    steps:
+      - direction: In
+        trigger:
+          - uri: "/api/v1/evaluate"
+      - direction: Out
+        message:
+          payload: |-
+            {
+              "authorized": true
+            }

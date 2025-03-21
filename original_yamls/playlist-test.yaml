@@ -1,0 +1,122 @@
+schema: SimV1
+name: playlistTest
+
+connections:
+  - name: playlistApi
+    endpoint: http://localhost:28885
+    listen: false
+
+services:
+  - name: testPlaylistRunsService
+    description: Test for the Tosca Cloud Playlist Runs Search API
+    steps:
+      - direction: Out
+        name: sendPlaylistRunsRequest
+        to: playlistApi
+        buffer:
+          - name: testToken
+            value: "Bearer TOKEN"
+          - name: requestId
+            value: "602694ed850c40cd837064118a053e32"
+          - name: parentId
+            value: "e500109ac0c24e2a"
+        insert:
+          - type: Path
+            value: /api/v2/playlistRuns/search
+          - type: Method
+            value: POST
+          - type: Query
+            key: tenantId
+            value: fusionx
+          - type: Query
+            key: spaceId
+            value: default
+          - type: Header
+            key: Authorization
+            value: "{B[testToken]}"
+          - type: Header
+            key: Accept
+            value: "*/*"
+          - type: Header
+            key: Content-Type
+            value: "application/json"
+          - type: Header
+            key: request-id
+            value: "|{B[requestId]}.{B[parentId]}"
+          - type: Header
+            key: traceparent
+            value: "00-{B[requestId]}-{B[parentId]}-01"
+          - type: Payload
+            value: |
+              {"filter":{"items":[{"field":"createdAt","value":"2025-01-01T00:00:00.000Z","operator":"greaterThanOrEqual"}],"linkOperator":"and"},"pageToken":null}
+      
+      - direction: In
+        name: verifyPlaylistRunsResponse
+        from: playlistApi
+        verify:
+          - jsonPath: $.total
+            value: 1
+          - jsonPath: $.items[0].id
+            value: d6ddeb82-58ca-4463-b8fc-70a6de81bee3
+          - jsonPath: $.items[0].playlistName
+            value: Tosca On-prem Test Playlist
+          - jsonPath: $.items[0].state
+            value: failed
+
+  - name: testTestCaseRunsService
+    description: Test for the Tosca Cloud Test Case Runs Search API
+    steps:
+      - direction: Out
+        name: sendTestCaseRunsRequest
+        to: playlistApi
+        buffer:
+          - name: testToken
+            value: "Bearer TOKEN"
+          - name: requestId
+            value: "602694ed850c40cd837064118a053e32"
+          - name: parentId
+            value: "e500109ac0c24e2a"
+        insert:
+          - type: Path
+            value: /api/v2/testCaseRuns/search
+          - type: Method
+            value: POST
+          - type: Query
+            key: tenantId
+            value: fusionx
+          - type: Query
+            key: spaceId
+            value: default
+          - type: Header
+            key: Authorization
+            value: "{B[testToken]}"
+          - type: Header
+            key: Accept
+            value: "*/*"
+          - type: Header
+            key: Content-Type
+            value: "application/json"
+          - type: Header
+            key: request-id
+            value: "|{B[requestId]}.{B[parentId]}"
+          - type: Header
+            key: traceparent
+            value: "00-{B[requestId]}-{B[parentId]}-01"
+          - type: Payload
+            value: |
+              {"filter":{"items":[{"field":"playlistRunId","value":"d6ddeb82-58ca-4463-b8fc-70a6de81bee3","operator":"equals"}],"linkOperator":"and"},"pageToken":null}
+      
+      - direction: In
+        name: verifyTestCaseRunsResponse
+        from: playlistApi
+        verify:
+          - jsonPath: $.total
+            value: 3
+          - jsonPath: $.items[0].displayName
+            value: Open Google
+          - jsonPath: $.items[0].state
+            value: succeeded
+          - jsonPath: $.items[1].displayName
+            value: Tosca - GET Playlist Runs List
+          - jsonPath: $.items[1].state
+            value: failed

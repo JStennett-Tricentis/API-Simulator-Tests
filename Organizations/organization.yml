@@ -1,0 +1,27 @@
+schema: SimV1
+name: default
+
+connections:
+  - name: organization
+    port: 28888
+
+services:
+  - name: tenants
+    steps:
+      - direction: In
+        trigger:
+          - uri: "/internalApi/v1/tenants"
+      - direction: Out
+        message:
+          payload: |-
+            [{"name":"fusionx","region":"neu","spoke":"tplat-neu-dev-003","organizationId":"b76f8d83-bf0d-49d5-8800-e69b5ab21768","internal":true}]
+
+  - name: spaces
+    steps:
+      - direction: In
+        trigger:
+          - uri: "/internalApi/v1/tenants/fusionx/spaces"
+      - direction: Out
+        message:
+          payload: |-
+            [{"id":"default","isBuiltIn":true,"name":"Defaultt","path":"Defaultt","description":"Default workspace of the tenant.","accessType":"Public","ownerId":""}]

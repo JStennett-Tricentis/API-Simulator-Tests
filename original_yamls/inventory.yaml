@@ -1,0 +1,53 @@
+schema: SimV1
+name: Inventory
+
+connections:
+  - name: inventoryApi
+    port: 28881
+
+services:
+  - name: artifactsSearchService
+    description: Simulates the Tosca Cloud Artifacts Search API
+    steps:
+      - direction: In
+        name: receiveArtifactsSearchRequest
+        trigger:
+          - type: Path
+            value: /api/v3/artifacts/search
+          - type: Method
+            value: POST
+          - type: Query
+            key: tenantId
+            value: fusionx
+          - type: Query
+            key: spaceId
+            value: default
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestPayload
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+
+      - direction: Out
+        name: sendArtifactsSearchResponse
+        message:
+          statusCode: 200
+          headers:
+            - key: Content-Type
+              value: application/json
+            - key: Server
+              value: Kestrel
+          payload: |
+            {
+              "total": 0,
+              "items": [],
+              "previousPageToken": null,
+              "currentPageToken": "AAAABYim0poAAz/m+L37AwQAAAAAAAiLHwAAAAU=",
+              "nextPageToken": null
+            }

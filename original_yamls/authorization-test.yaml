@@ -1,0 +1,37 @@
+schema: SimV1
+name: authorizationTest
+
+connections:
+  - name: authorizationApi
+    endpoint: http://localhost:28887
+    listen: false
+
+services:
+  - name: testEvaluateService
+    description: Test for the Tosca Cloud Authorization Evaluate API
+    steps:
+      - direction: Out
+        name: sendEvaluateRequest
+        to: authorizationApi
+        buffer:
+          - name: testToken
+            value: "Bearer TOKEN"
+        insert:
+          - type: Path
+            value: /api/v1/evaluate
+          - type: Method
+            value: GET
+          - type: Header
+            key: Authorization
+            value: "{B[testToken]}"
+          - type: Header
+            key: Accept
+            value: "*/*"
+      
+      - direction: In
+        name: verifyEvaluateResponse
+        from: authorizationApi
+        verify:
+          - jsonPath: $.authorized
+            value: true
+          - statusCode: 200

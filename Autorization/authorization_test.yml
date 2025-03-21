@@ -1,0 +1,32 @@
+schema: SimV1
+name: default
+services:
+  - name: Authorization_Service
+    steps:
+      - connection:
+          endpoint: http://localhost:28887/api/v1/evaluate
+          listen: false
+        direction: Out
+        insert:
+          - value: /api/v1/evaluate
+        message:
+          method: GET
+          payload: ""
+        to: authorization
+      - message:
+          headers:
+            - key: Date
+              value: Tue, 25 Feb 2025 15:20:42 GMT
+            - key: Server
+              value: Kestrel
+            - key: Content-Length
+              value: 27
+          payload: |-
+            {
+              "authorized": true
+            }
+        verify:
+          - value: >-
+              {
+                "authorized": true
+              }

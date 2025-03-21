@@ -1,0 +1,66 @@
+schema: SimV1
+name: executionTest
+
+connections:
+  - name: executionApi
+    endpoint: http://localhost:28884
+    listen: false
+
+services:
+  - name: testExecutionDetailsService
+    description: Test for the Tosca Cloud Execution Details API
+    steps:
+      - direction: Out
+        name: sendExecutionDetailsRequest
+        to: executionApi
+        buffer:
+          - name: testToken
+            value: "Bearer TOKEN"
+          - name: requestId
+            value: "602694ed850c40cd837064118a053e32"
+          - name: parentId
+            value: "bdcc4a2790f64d2d"
+        insert:
+          - type: Path
+            value: /api/v1/executions/d6ddeb82-58ca-4463-b8fc-70a6de81bee3
+          - type: Method
+            value: GET
+          - type: Query
+            key: tenantId
+            value: fusionx
+          - type: Query
+            key: spaceId
+            value: default
+          - type: Header
+            key: Authorization
+            value: "{B[testToken]}"
+          - type: Header
+            key: Accept
+            value: "*/*"
+          - type: Header
+            key: request-id
+            value: "|{B[requestId]}.{B[parentId]}"
+          - type: Header
+            key: traceparent
+            value: "00-{B[requestId]}-{B[parentId]}-01"
+      
+      - direction: In
+        name: verifyExecutionDetailsResponse
+        from: executionApi
+        verify:
+          - jsonPath: $.id
+            value: d6ddeb82-58ca-4463-b8fc-70a6de81bee3
+          - jsonPath: $.name
+            value: Tosca On-prem Test Playlist
+          - jsonPath: $.state
+            value: failed
+          - jsonPath: $.items[0].name
+            value: Open Google
+          - jsonPath: $.items[0].state
+            value: succeeded
+          - jsonPath: $.items[2].name
+            value: Tosca - GET Playlist Runs List
+          - jsonPath: $.items[2].state
+            value: failed
+          - jsonPath: $.unitExecutionsSummary.total
+            value: 3

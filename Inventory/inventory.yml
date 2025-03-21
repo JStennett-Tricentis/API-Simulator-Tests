@@ -1,0 +1,17 @@
+schema: SimV1
+name: default
+
+connections:
+  - name: inventory
+    port: 28881
+
+services:
+  - name: playlists
+    steps:
+      - direction: In
+        trigger:
+          - uri: "/api/v3/artifacts/search?tenantId=fusionx&spaceId=default"
+      - direction: Out
+        message:
+          payload: |-
+            {"total":0,"items":[],"previousPageToken":null,"currentPageToken":"AAAABYim0poAAz/m\u002BL37AwQAAAAAAAiLHwAAAAU=","nextPageToken":null}

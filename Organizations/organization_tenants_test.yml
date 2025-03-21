@@ -1,0 +1,35 @@
+schema: SimV1
+name: default
+services:
+  - name: Tenants_Service
+    steps:
+      - connection:
+          endpoint: http://localhost:28888/internalApi/v1/tenants
+          listen: false
+        direction: Out
+        insert:
+          - value: /internalApi/v1/tenants
+        message:
+          method: GET
+          payload: ""
+        to: organization
+      - message:
+          headers:
+            - key: Date
+              value: Tue, 25 Feb 2025 15:19:54 GMT
+            - key: Server
+              value: Kestrel
+            - key: Content-Length
+              value: 136
+          payload: |-
+            [
+              {
+                "name": "fusionx",
+                "region": "neu",
+                "spoke": "tplat-neu-dev-003",
+                "organizationId": "b76f8d83-bf0d-49d5-8800-e69b5ab21768",
+                "internal": true
+              }
+            ]
+        verify:
+          - value: '[{"name":"fusionx","region":"neu","spoke":"tplat-neu-dev-003","organizationId":"b76f8d83-bf0d-49d5-8800-e69b5ab21768","internal":true}]'
