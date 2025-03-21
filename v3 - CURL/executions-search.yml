@@ -1,0 +1,65 @@
+schema: SimV1
+name: toscaCloudExecutionsSearch
+
+connections:
+  - name: executionsSearchApi
+    port: 18003
+
+services:
+  - name: executionsSearchService
+    description: Simulates the Tosca Cloud Executions Search API
+    steps:
+      - direction: In
+        name: receiveExecutionsSearchRequest
+        trigger:
+          - type: Path
+            value: /_e2g/api/executions/search
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestPayload
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+
+      - direction: Out
+        name: sendExecutionsSearchResponse
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |
+            {
+                "total": 2,
+                "items": [
+                    {
+                        "id": "47bd1590-d9a7-44b6-8788-f39b63c87266",
+                        "items": [],
+                        "executionMode": "parallel",
+                        "state": "succeeded",
+                        "priority": 0,
+                        "timeout": "00:00:00",
+                        "private": false,
+                        "createdAt": "2025-03-21T09:00:12.429Z",
+                        "updatedAt": "0001-01-01T00:00:00"
+                    },
+                    {
+                        "id": "f20338b6-a16f-461f-85d2-ea3def100f6a",
+                        "items": [],
+                        "executionMode": "parallel",
+                        "state": "failed",
+                        "priority": 0,
+                        "timeout": "00:00:00",
+                        "private": false,
+                        "createdAt": "2025-03-21T08:00:11.355Z",
+                        "updatedAt": "0001-01-01T00:00:00"
+                    }
+                ],
+                "previousPageToken": null,
+                "currentPageToken": "AAAABYsTFd8AAY/y+jlTAwQAAAAAAAiLHwAAAAU=",
+                "nextPageToken": null
+            }

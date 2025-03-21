@@ -1,0 +1,53 @@
+schema: SimV1
+name: toscaCloudPlaylistsSearchTest
+
+connections:
+  - name: playlistsSearchApi
+    endpoint: http://localhost:18002
+    listen: false
+
+services:
+  - name: testPlaylistsSearchBasic
+    description: Basic test for the Tosca Cloud Playlists Search API
+    steps:
+      - direction: Out
+        name: sendPlaylistsSearchRequest
+        to: playlistsSearchApi
+        buffer:
+          - name: requestId
+            value: "602694ed850c40cd837064118a053e32"
+          - name: parentId
+            value: "e500109ac0c24e2a"
+        insert:
+          - type: Path
+            value: /_playlists/api/v2/playlists/search
+          - type: Header
+            key: Authorization
+            value: "Bearer TOKEN"
+          - type: Header
+            key: Accept
+            value: "*/*"
+          - type: Header
+            key: request-id
+            value: "|{B[requestId]}.{B[parentId]}"
+          - type: Header
+            key: traceparent
+            value: "00-{B[requestId]}-{B[parentId]}-01"
+          - type: Payload
+            value: |
+              {"filter":{"items":[{"field":"updatedBy","value":"00u90zmxjqLe3vVbh0x7","operator":"equals"},{"field":"updatedAt","value":"2025-03-15T05:00:00.000Z","operator":"greaterThanOrEqual"}]},"pageToken":null}
+
+      - direction: In
+        name: verifyPlaylistsSearchResponse
+        from: playlistsSearchApi
+        verify:
+          - jsonPath: $.total
+            value: 13
+          - jsonPath: $.items[0].id
+            value: 5aa77b0b-ca14-41eb-a20b-60b22473c405
+          - jsonPath: $.items[0].name
+            value: WIP
+          - jsonPath: $.items[1].id
+            value: 02330355-39c8-40b3-87fb-d8a06685bd4b
+          - jsonPath: $.items[1].name
+            value: Tosca Simple Passing Test

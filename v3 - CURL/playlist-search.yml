@@ -1,0 +1,100 @@
+schema: SimV1
+name: toscaCloudPlaylistsSearch
+
+connections:
+  - name: playlistsSearchApi
+    port: 18002
+
+services:
+  - name: playlistsSearchService
+    description: Simulates the Tosca Cloud Playlists Search API
+    steps:
+      - direction: In
+        name: receivePlaylistsSearchRequest
+        trigger:
+          - type: Path
+            value: /_playlists/api/v2/playlists/search
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestPayload
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+
+      - direction: Out
+        name: sendPlaylistsSearchResponse
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |
+            {
+                "total": 13,
+                "items": [
+                    {
+                        "id": "5aa77b0b-ca14-41eb-a20b-60b22473c405",
+                        "name": "WIP",
+                        "description": "",
+                        "items": [
+                            {
+                                "$type": "TestCaseV1",
+                                "id": "5538e7e2-b4c3-4a7e-9050-316c60523311",
+                                "characteristics": [],
+                                "parameters": [],
+                                "sourceId": "ac5cd618-738d-4d98-b3fd-02c8368d2faf",
+                                "disabled": false
+                            }
+                        ],
+                        "characteristics": [
+                            {
+                                "name": "Agent-type",
+                                "value": "Cloud-agent"
+                            }
+                        ],
+                        "parameters": [
+                            {
+                                "name": "RUNNING_IN_CLOUD",
+                                "value": "True",
+                                "dataType": "string"
+                            }
+                        ],
+                        "runMode": "sequential",
+                        "uploadRecordingsOnSuccess": false,
+                        "createdAt": "2025-01-08T20:48:57.926Z",
+                        "createdBy": "00u90zmxjqLe3vVbh0x7",
+                        "updatedAt": "2025-03-18T14:39:05.949Z",
+                        "updatedBy": "00u90zmxjqLe3vVbh0x7"
+                    },
+                    {
+                        "id": "02330355-39c8-40b3-87fb-d8a06685bd4b",
+                        "name": "Tosca Simple Passing Test",
+                        "description": "A simple playlist that will always passes.",
+                        "items": [
+                            {
+                                "$type": "TestCaseV1",
+                                "id": "af01488f-cfbf-4003-b0c6-936aabe7aece",
+                                "characteristics": [],
+                                "parameters": [],
+                                "sourceId": "IywphvsBQkyN3s6QAasARQ",
+                                "disabled": false
+                            }
+                        ],
+                        "characteristics": [],
+                        "parameters": [],
+                        "runMode": "parallel",
+                        "uploadRecordingsOnSuccess": false,
+                        "createdAt": "2025-03-04T19:27:05.408Z",
+                        "createdBy": "Tricentis_Cloud_API",
+                        "updatedAt": "2025-03-04T19:27:05.408Z",
+                        "updatedBy": "Tricentis_Cloud_API"
+                    }
+                ],
+                "previousPageToken": null,
+                "currentPageToken": "AAAABXrPJr8AAb1n8dtzAwQAAAAAAAiLHwAAAAU=",
+                "nextPageToken": null
+            }

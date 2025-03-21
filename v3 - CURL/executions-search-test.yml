@@ -1,0 +1,53 @@
+schema: SimV1
+name: toscaCloudExecutionsSearchTest
+
+connections:
+  - name: executionsSearchApi
+    endpoint: http://localhost:18003
+    listen: false
+
+services:
+  - name: testExecutionsSearchBasic
+    description: Basic test for the Tosca Cloud Executions Search API
+    steps:
+      - direction: Out
+        name: sendExecutionsSearchRequest
+        to: executionsSearchApi
+        buffer:
+          - name: requestId
+            value: "602694ed850c40cd837064118a053e32"
+          - name: parentId
+            value: "bdcc4a2790f64d2d"
+        insert:
+          - type: Path
+            value: /_e2g/api/executions/search
+          - type: Header
+            key: Authorization
+            value: "Bearer TOKEN"
+          - type: Header
+            key: Accept
+            value: "*/*"
+          - type: Header
+            key: request-id
+            value: "|{B[requestId]}.{B[parentId]}"
+          - type: Header
+            key: traceparent
+            value: "00-{B[requestId]}-{B[parentId]}-01"
+          - type: Payload
+            value: |
+              {"filter":{"items":[{"field":"createdAt","value":"2025-03-15T05:00:00.000Z","operator":"greaterThanOrEqual"},{"field":"private","value":false,"operator":"equals"},{"field":"state","values":["succeeded","failed","canceled","unknown"],"operator":"isAnyOf"}],"linkOperator":"and"},"sort":[{"field":"createdAt","direction":"desc"}],"includeFields":["id","createdAt","state"],"excludeFields":null,"pageToken":null,"itemsPerPage":500}
+
+      - direction: In
+        name: verifyExecutionsSearchResponse
+        from: executionsSearchApi
+        verify:
+          - jsonPath: $.total
+            value: 37
+          - jsonPath: $.items[0].id
+            value: 47bd1590-d9a7-44b6-8788-f39b63c87266
+          - jsonPath: $.items[0].state
+            value: succeeded
+          - jsonPath: $.items[1].id
+            value: f20338b6-a16f-461f-85d2-ea3def100f6a
+          - jsonPath: $.items[1].state
+            value: failed
