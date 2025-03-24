@@ -1,0 +1,37 @@
+schema: SimV1
+name: toscaCloudAuthorization
+
+connections:
+  - name: authorizationApi
+    port: 20005
+
+services:
+  - name: authorizationService
+    description: Simulates the Tosca Cloud Authorization API
+    steps:
+      - direction: In
+        name: receiveAuthorizationRequest
+        trigger:
+          - type: Path
+            value: "/api/v1/evaluate"
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+
+      - direction: Out
+        name: sendAuthorizationResponse
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |-
+            {
+              "authorized": true
+            }

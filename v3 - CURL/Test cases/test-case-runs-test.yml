@@ -1,0 +1,52 @@
+schema: SimV1
+name: toscaCloudTestCaseRunsTest
+
+connections:
+  - name: testCaseRunsApi
+    endpoint: http://localhost:20009
+    listen: false
+
+services:
+  - name: testTestCaseRunsService
+    description: Tests the Tosca Cloud Test Case Runs API
+    steps:
+      - direction: Out
+        name: sendTestCaseRunsRequest
+        to: testCaseRunsApi
+        buffer:
+          - name: requestId
+            value: "6f59c213af77477fb27e9d09a29bd503"
+          - name: parentId
+            value: "1d6378f9e1dc4a3b"
+        insert:
+          - type: Path
+            value: /api/v2/testCaseRuns/search
+          - type: Header
+            key: Authorization
+            value: "Bearer TOKEN"
+          - type: Header
+            key: Accept
+            value: "*/*"
+          - type: Header
+            key: request-id
+            value: "|{B[requestId]}.{B[parentId]}"
+          - type: Header
+            key: traceparent
+            value: "00-{B[requestId]}-{B[parentId]}-01"
+
+      - direction: In
+        name: verifyTestCaseRunsResponse
+        from: testCaseRunsApi
+        verify:
+          - jsonPath: $.total
+            value: 3
+          - jsonPath: $.items[0].displayName
+            value: Open Google
+          - jsonPath: $.items[0].state
+            value: succeeded
+          - jsonPath: $.items[1].displayName
+            value: Tosca - GET Playlist Runs List
+          - jsonPath: $.items[1].state
+            value: failed
+          - jsonPath: $.items[2].displayName
+            value: Unnamed Test Case

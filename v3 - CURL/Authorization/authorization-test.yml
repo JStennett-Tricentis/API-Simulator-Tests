@@ -1,0 +1,42 @@
+schema: SimV1
+name: toscaCloudAuthorizationTest
+
+connections:
+  - name: authorizationApi
+    endpoint: http://localhost:20005
+    listen: false
+
+services:
+  - name: testAuthorizationService
+    description: Tests the Tosca Cloud Authorization API
+    steps:
+      - direction: Out
+        name: sendAuthorizationRequest
+        to: authorizationApi
+        buffer:
+          - name: requestId
+            value: "8fe29b2367d94a4e876f50acf259e1bb"
+          - name: parentId
+            value: "9e4721f39f7043c7"
+        insert:
+          - type: Path
+            value: /api/v1/evaluate
+          - type: Header
+            key: Authorization
+            value: "Bearer TOKEN"
+          - type: Header
+            key: Accept
+            value: "*/*"
+          - type: Header
+            key: request-id
+            value: "|{B[requestId]}.{B[parentId]}"
+          - type: Header
+            key: traceparent
+            value: "00-{B[requestId]}-{B[parentId]}-01"
+
+      - direction: In
+        name: verifyAuthorizationResponse
+        from: authorizationApi
+        verify:
+          - jsonPath: $.authorized
+            value: true
