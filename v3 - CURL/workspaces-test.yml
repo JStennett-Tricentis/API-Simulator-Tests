@@ -3,7 +3,7 @@ name: toscaCloudWorkspacesTest
 
 connections:
   - name: workspacesApi
-    endpoint: http://localhost:18001
+    endpoint: http://localhost:20001
     listen: false
 
 services:

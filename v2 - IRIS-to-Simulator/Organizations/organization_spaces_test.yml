@@ -1,37 +1,33 @@
 schema: SimV1
-name: default
+name: toscaCloudOrganizationSpacesTest
+
+connections:
+  - name: organizationApi
+    endpoint: http://localhost:21001
+    listen: false
+
 services:
-  - name: Spaces_Service
+  - name: testSpacesService
+    description: Tests the Tosca Cloud Spaces API
     steps:
-      - connection:
-          endpoint: http://localhost:28888/internalApi/v1/tenants/fusionx/spaces
-          listen: false
-        direction: Out
+      - direction: Out
+        name: sendSpacesRequest
+        to: organizationApi
         insert:
-          - value: /internalApi/v1/tenants/fusionx/spaces
-        message:
-          method: GET
-          payload: ""
-        to: organization
-      - message:
-          headers:
-            - key: Date
-              value: Tue, 25 Feb 2025 15:19:12 GMT
-            - key: Server
-              value: Kestrel
-            - key: Content-Length
-              value: 156
-          payload: |-
-            [
-              {
-                "id": "default",
-                "isBuiltIn": true,
-                "name": "Defaultt",
-                "path": "Defaultt",
-                "description": "Default workspace of the tenant.",
-                "accessType": "Public",
-                "ownerId": ""
-              }
-            ]
+          - type: Path
+            value: /internalApi/v1/tenants/fusionx/spaces
+          - type: Method
+            value: GET
+
+      - direction: In
+        name: verifySpacesResponse
+        from: organizationApi
         verify:
-          - value: '[{"id":"default","isBuiltIn":true,"name":"Defaultt","path":"Defaultt","description":"Default workspace of the tenant.","accessType":"Public","ownerId":""}]'
+          - jsonPath: $[0].id
+            value: default
+          - jsonPath: $[0].name
+            value: Defaultt
+          - jsonPath: $[0].path
+            value: Defaultt
+          - jsonPath: $[0].accessType
+            value: Public

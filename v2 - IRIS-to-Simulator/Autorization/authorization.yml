@@ -1,17 +1,24 @@
 schema: SimV1
-name: default
+name: toscaCloudAuthorization
 
 connections:
-  - name: authorization
-    port: 28887
+  - name: authorizationApi
+    port: 21005
+    listen: true
 
 services:
-  - name: authorization
+  - name: authorizationService
+    description: Simulates the Tosca Cloud Authorization API
     steps:
       - direction: In
+        name: receiveAuthorizationRequest
+        from: authorizationApi
         trigger:
-          - uri: "/api/v1/evaluate"
+          - type: Path
+            value: "/api/v1/evaluate"
       - direction: Out
+        name: sendAuthorizationResponse
+        to: authorizationApi
         message:
           payload: |-
             {

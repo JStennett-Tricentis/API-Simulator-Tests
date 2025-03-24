@@ -3,7 +3,7 @@ name: toscaCloudPlaylistRecentRuns
 
 connections:
   - name: playlistRecentRunsApi
-    port: 18004
+    port: 20004
 
 services:
   - name: playlistRecentRunsService

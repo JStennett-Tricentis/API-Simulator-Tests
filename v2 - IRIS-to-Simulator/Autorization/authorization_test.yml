@@ -1,32 +1,27 @@
 schema: SimV1
-name: default
+name: toscaCloudAuthorizationTest
+
+connections:
+  - name: authorizationApi
+    endpoint: http://localhost:21005
+    listen: false
+
 services:
-  - name: Authorization_Service
+  - name: testAuthorizationService
+    description: Tests the Tosca Cloud Authorization API
     steps:
-      - connection:
-          endpoint: http://localhost:28887/api/v1/evaluate
-          listen: false
-        direction: Out
+      - direction: Out
+        name: sendAuthorizationRequest
+        to: authorizationApi
         insert:
-          - value: /api/v1/evaluate
-        message:
-          method: GET
-          payload: ""
-        to: authorization
-      - message:
-          headers:
-            - key: Date
-              value: Tue, 25 Feb 2025 15:20:42 GMT
-            - key: Server
-              value: Kestrel
-            - key: Content-Length
-              value: 27
-          payload: |-
-            {
-              "authorized": true
-            }
+          - type: Path
+            value: /api/v1/evaluate
+          - type: Method
+            value: GET
+
+      - direction: In
+        name: verifyAuthorizationResponse
+        from: authorizationApi
         verify:
-          - value: >-
-              {
-                "authorized": true
-              }
+          - jsonPath: $.authorized
+            value: true

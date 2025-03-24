@@ -3,7 +3,7 @@ name: toscaCloudPlaylistRecentRunsTest
 
 connections:
   - name: playlistRecentRunsApi
-    endpoint: http://localhost:18004
+    endpoint: http://localhost:20004
     listen: false
 
 services:

@@ -1,17 +1,24 @@
 schema: SimV1
-name: default
+name: toscaCloudInventory
 
 connections:
-  - name: inventory
-    port: 28881
+  - name: inventoryApi
+    port: 21004
+    listen: true
 
 services:
-  - name: playlists
+  - name: playlistsService
+    description: Simulates the Tosca Cloud Playlists Inventory API
     steps:
       - direction: In
+        name: receiveArtifactsRequest
+        from: inventoryApi
         trigger:
-          - uri: "/api/v3/artifacts/search?tenantId=fusionx&spaceId=default"
+          - type: Path
+            value: "/api/v3/artifacts/search"
       - direction: Out
+        name: sendArtifactsResponse
+        to: inventoryApi
         message:
           payload: |-
             {"total":0,"items":[],"previousPageToken":null,"currentPageToken":"AAAABYim0poAAz/m\u002BL37AwQAAAAAAAiLHwAAAAU=","nextPageToken":null}

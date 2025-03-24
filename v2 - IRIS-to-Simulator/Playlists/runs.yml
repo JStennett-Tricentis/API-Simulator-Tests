@@ -1,27 +1,40 @@
 schema: SimV1
-name: default
+name: toscaCloudRuns
 
 connections:
-  - name: runs
-    port: 28885
+  - name: runsApi
+    port: 21003
+    listen: true
 
 services:
-  - name: playlistRuns
+  - name: playlistRunsService
+    description: Simulates the Tosca Cloud Playlist Runs API
     steps:
       - direction: In
+        name: receivePlaylistRunsRequest
+        from: runsApi
         trigger:
-          - uri: "/api/v2/playlistRuns/search?tenantId=fusionx&spaceId=default"
+          - type: Path
+            value: "/api/v2/playlistRuns/search"
       - direction: Out
+        name: sendPlaylistRunsResponse
+        to: runsApi
         message:
           payload: |-
             {"total":1,"items":[{"id":"d6ddeb82-58ca-4463-b8fc-70a6de81bee3","playlistId":"e1b920b9-dfa7-4905-b1da-fc9a18791c1f","playlistName":"Tosca On-prem Test Playlist","private":false,"createdAt":"2025-01-17T17:49:38.701Z","updatedAt":"2025-01-17T17:50:00.36Z","createdBy":"00u90zj2tmQA89tCs0x7","state":"failed"}],"previousPageToken":null,"currentPageToken":"AAAABRYDUCIAAMDy62J7AwQAAAAAAAiLHwAAAAU=","nextPageToken":null}
 
-  - name: testCaseRuns
+  - name: testCaseRunsService
+    description: Simulates the Tosca Cloud Test Case Runs API
     steps:
       - direction: In
+        name: receiveTestCaseRunsRequest
+        from: runsApi
         trigger:
-          - uri: "/api/v2/testCaseRuns/search?tenantId=fusionx&spaceId=default"
+          - type: Path
+            value: "/api/v2/testCaseRuns/search"
       - direction: Out
+        name: sendTestCaseRunsResponse
+        to: runsApi
         message:
           payload: |-
             {"total":3,"items":[{"id":"5bae1f1a-ba66-40a6-9871-bc123e5df377","playlistRunId":"d6ddeb82-58ca-4463-b8fc-70a6de81bee3","testCaseId":"d60f8ef0-7444-4558-a8a0-fb4a9e6ed580","sourceId":"kvwJE4HKY0OUcfSkIwbGXQ","displayName":"Open Google","unitId":"fc576413-6740-4e1a-90b7-e6e4147408b1","state":"succeeded","updatedAt":"2025-01-17T17:49:52.074Z","createdAt":"2025-01-17T17:49:38.701Z","createdBy":"00u90zj2tmQA89tCs0x7"},

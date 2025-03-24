@@ -1,72 +1,41 @@
 schema: SimV1
-name: default
+name: toscaCloudTestCaseRunsTest
+
+connections:
+  - name: runsApi
+    endpoint: http://localhost:21003
+    listen: false
+
 services:
-  - name: Test_Case_Runs_Service
+  - name: testTestCaseRunsService
+    description: Tests the Tosca Cloud Test Case Runs API
     steps:
-      - connection:
-          endpoint: http://localhost:28885/api/v2/testCaseRuns/search?tenantId=fusionx&spaceId=default
-          listen: false
-        direction: Out
+      - direction: Out
+        name: sendTestCaseRunsRequest
+        to: runsApi
         insert:
-          - type: Payload
-            value: /api/v2/testCaseRuns/search?tenantId=fusionx&spaceId=default
-        message:
-          method: POST
-          payload: |-
-            /api/v2/testCaseRuns/search?tenantId=fusionx&spaceId=default
-        to: runs
-      - message:
-          headers:
-            - key: Date
-              value: Tue, 25 Feb 2025 15:20:09 GMT
-            - key: Server
-              value: Kestrel
-            - key: Content-Length
-              value: 1348
-          payload: |-
-            {
-              "total": 3,
-              "items": [
-                {
-                  "id": "5bae1f1a-ba66-40a6-9871-bc123e5df377",
-                  "playlistRunId": "d6ddeb82-58ca-4463-b8fc-70a6de81bee3",
-                  "testCaseId": "d60f8ef0-7444-4558-a8a0-fb4a9e6ed580",
-                  "sourceId": "kvwJE4HKY0OUcfSkIwbGXQ",
-                  "displayName": "Open Google",
-                  "unitId": "fc576413-6740-4e1a-90b7-e6e4147408b1",
-                  "state": "succeeded",
-                  "updatedAt": "2025-01-17T17:49:52.074Z",
-                  "createdAt": "2025-01-17T17:49:38.701Z",
-                  "createdBy": "00u90zj2tmQA89tCs0x7"
-                },
-                {
-                  "id": "b7fd3cbc-e7a7-4c47-84f3-45679b7bd9dd",
-                  "playlistRunId": "d6ddeb82-58ca-4463-b8fc-70a6de81bee3",
-                  "testCaseId": "abc65d3e-2e52-45fd-8154-08be75412cc3",
-                  "sourceId": "Tch2DS9SVkS8Mx6pGZSFWg",
-                  "displayName": "Tosca - GET Playlist Runs List",
-                  "unitId": "41da3a3c-a672-4f82-8404-0b93c0268136",
-                  "state": "failed",
-                  "updatedAt": "2025-01-17T17:49:42.463Z",
-                  "createdAt": "2025-01-17T17:49:38.701Z",
-                  "createdBy": "00u90zj2tmQA89tCs0x7"
-                },
-                {
-                  "id": "becc7582-5fc0-4c7d-8869-584571f84a7f",
-                  "playlistRunId": "d6ddeb82-58ca-4463-b8fc-70a6de81bee3",
-                  "testCaseId": "d220212a-edea-48e4-98c3-7bd509d81896",
-                  "sourceId": "Xi75D9YP-ka7wha2GgtN1w",
-                  "displayName": "Unnamed Test Case",
-                  "unitId": "367148fe-9b74-40bf-a513-34fdce9ae285",
-                  "state": "succeeded",
-                  "updatedAt": "2025-01-17T17:50:00.36Z",
-                  "createdAt": "2025-01-17T17:49:38.701Z",
-                  "createdBy": "00u90zj2tmQA89tCs0x7"
-                }
-              ],
-              "previousPageToken": null,
-              "currentPageToken": "AAAABconYeUAANB2rz9zAwQAAAAAAAiLHwAAAAU=",
-              "nextPageToken": null
-            }
+          - type: Path
+            value: /api/v2/testCaseRuns/search
+          - type: QueryParam
+            key: tenantId
+            value: fusionx
+          - type: QueryParam
+            key: spaceId
+            value: default
+          - type: Method
+            value: GET
+
+      - direction: In
+        name: verifyTestCaseRunsResponse
+        from: runsApi
         verify:
-          - value: '{"total":1,"items":[{"id":"d6ddeb82-58ca-4463-b8fc-70a6de81bee3","playlistId":"e1b920b9-dfa7-4905-b1da-fc9a18791c1f","playlistName":"Tosca On-prem Test Playlist","private":false,"createdAt":"2025-01-17T17:49:38.701Z","updatedAt":"2025-01-17T17:50:00.36Z","createdBy":"00u90zj2tmQA89tCs0x7","state":"failed"}],"previousPageToken":null,"currentPageToken":"AAAABRYDUCIAAMDy62J7AwQAAAAAAAiLHwAAAAU=","nextPageToken":null}'
+          - jsonPath: $.total
+            value: 3
+          - jsonPath: $.items[0].displayName
+            value: Open Google
+          - jsonPath: $.items[0].state
+            value: succeeded
+          - jsonPath: $.items[1].displayName
+            value: Tosca - GET Playlist Runs List
+          - jsonPath: $.items[1].state
+            value: failed

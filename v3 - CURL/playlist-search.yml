@@ -3,7 +3,7 @@ name: toscaCloudPlaylistsSearch
 
 connections:
   - name: playlistsSearchApi
-    port: 18002
+    port: 20002
 
 services:
   - name: playlistsSearchService

@@ -3,7 +3,7 @@ name: toscaCloudWorkspaces
 
 connections:
   - name: workspacesApi
-    port: 18001
+    port: 20001
 
 services:
   - name: workspacesService

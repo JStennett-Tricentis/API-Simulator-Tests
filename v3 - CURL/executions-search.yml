@@ -3,7 +3,7 @@ name: toscaCloudExecutionsSearch
 
 connections:
   - name: executionsSearchApi
-    port: 18003
+    port: 20003
 
 services:
   - name: executionsSearchService

@@ -1,35 +1,37 @@
 schema: SimV1
-name: default
+name: toscaCloudInventoryTest
+
+connections:
+  - name: inventoryApi
+    endpoint: http://localhost:21004
+    listen: false
+
 services:
-  - name: Inventory_Service
+  - name: testInventoryService
+    description: Tests the Tosca Cloud Inventory API
     steps:
-      - connection:
-          endpoint: http://localhost:28881/api/v3/artifacts/search?tenantId=fusionx&spaceId=default
-          listen: false
-        direction: Out
+      - direction: Out
+        name: sendArtifactsRequest
+        to: inventoryApi
         insert:
-          - type: Payload
-            value: /api/v3/artifacts/search?tenantId=fusionx&spaceId=default
-        message:
-          method: POST
-          payload: |-
-            /api/v3/artifacts/search?tenantId=fusionx&spaceId=default
-        to: inventory
-      - message:
-          headers:
-            - key: Date
-              value: Tue, 25 Feb 2025 15:28:41 GMT
-            - key: Server
-              value: Kestrel
-            - key: Content-Length
-              value: 136
-          payload: |-
-            {
-              "total": 0,
-              "items": [],
-              "previousPageToken": null,
-              "currentPageToken": "AAAABYim0poAAz/m+L37AwQAAAAAAAiLHwAAAAU=",
-              "nextPageToken": null
-            }
+          - type: Path
+            value: /api/v3/artifacts/search
+          - type: QueryParam
+            key: tenantId
+            value: fusionx
+          - type: QueryParam
+            key: spaceId
+            value: default
+          - type: Method
+            value: GET
+
+      - direction: In
+        name: verifyArtifactsResponse
+        from: inventoryApi
         verify:
-          - value: '{"total":0,"items":[],"previousPageToken":null,"currentPageToken":"AAAABYim0poAAz/m\u002BL37AwQAAAAAAAiLHwAAAAU=","nextPageToken":null}'
+          - jsonPath: $.total
+            value: 0
+          - jsonPath: $.items
+            exists: true
+          - jsonPath: $.previousPageToken
+            value: null

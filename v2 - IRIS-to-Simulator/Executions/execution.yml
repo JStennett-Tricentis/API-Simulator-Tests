@@ -1,17 +1,24 @@
 schema: SimV1
-name: default
+name: toscaCloudExecutions
 
 connections:
-  - name: executions
-    port: 28884
+  - name: executionsApi
+    port: 21002
+    listen: true
 
 services:
-  - name: executions
+  - name: executionsService
+    description: Simulates the Tosca Cloud Executions API
     steps:
       - direction: In
+        name: receiveExecutionRequest
+        from: executionsApi
         trigger:
-          - uri: "/api/v1/executions/d6ddeb82-58ca-4463-b8fc-70a6de81bee3?tenantId=fusionx&spaceId=default"
+          - type: Path
+            value: "/api/v1/executions/d6ddeb82-58ca-4463-b8fc-70a6de81bee3"
       - direction: Out
+        name: sendExecutionResponse
+        to: executionsApi
         message:
           payload: |-
             {"id":"d6ddeb82-58ca-4463-b8fc-70a6de81bee3","name":"Tosca On-prem Test Playlist","items":[{"$type":"UnitV1","id":"fc576413-6740-4e1a-90b7-e6e4147408b1","artifactId":"b2bea531-a80a-4a99-87c6-c416c3a6f7bb","name":"Open Google","runner":"TBox","correlationId":"d60f8ef0-7444-4558-a8a0-fb4a9e6ed580","secretIds":[],"assignedAgentId":"Tricentis-c7b65e8f-5601-45ce-b27c-18b0c27add0e","startedAt":"2025-01-17T17:49:42.803Z","completedAt":"2025-01-17T17:49:52.074Z","state":"succeeded",

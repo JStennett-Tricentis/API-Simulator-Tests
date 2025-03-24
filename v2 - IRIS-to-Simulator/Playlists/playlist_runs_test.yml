@@ -1,46 +1,39 @@
 schema: SimV1
-name: default
+name: toscaCloudPlaylistRunsTest
+
+connections:
+  - name: runsApi
+    endpoint: http://localhost:21003
+    listen: false
+
 services:
-  - name: Playlist_Runs_Service
+  - name: testPlaylistRunsService
+    description: Tests the Tosca Cloud Playlist Runs API
     steps:
-      - connection:
-          endpoint: http://localhost:28885/api/v2/playlistRuns/search?tenantId=fusionx&spaceId=default
-          listen: false
-        direction: Out
+      - direction: Out
+        name: sendPlaylistRunsRequest
+        to: runsApi
         insert:
-          - type: Payload
-            value: /api/v2/playlistRuns/search?tenantId=fusionx&spaceId=default
-        message:
-          method: POST
-          payload: |-
-            /api/v2/playlistRuns/search?tenantId=fusionx&spaceId=default
-        to: runs
-      - message:
-          headers:
-            - key: Date
-              value: Tue, 25 Feb 2025 15:20:24 GMT
-            - key: Server
-              value: Kestrel
-            - key: Content-Length
-              value: 418
-          payload: |-
-            {
-              "total": 1,
-              "items": [
-                {
-                  "id": "d6ddeb82-58ca-4463-b8fc-70a6de81bee3",
-                  "playlistId": "e1b920b9-dfa7-4905-b1da-fc9a18791c1f",
-                  "playlistName": "Tosca On-prem Test Playlist",
-                  "private": false,
-                  "createdAt": "2025-01-17T17:49:38.701Z",
-                  "updatedAt": "2025-01-17T17:50:00.36Z",
-                  "createdBy": "00u90zj2tmQA89tCs0x7",
-                  "state": "failed"
-                }
-              ],
-              "previousPageToken": null,
-              "currentPageToken": "AAAABRYDUCIAAMDy62J7AwQAAAAAAAiLHwAAAAU=",
-              "nextPageToken": null
-            }
+          - type: Path
+            value: /api/v2/playlistRuns/search
+          - type: QueryParam
+            key: tenantId
+            value: fusionx
+          - type: QueryParam
+            key: spaceId
+            value: default
+          - type: Method
+            value: GET
+
+      - direction: In
+        name: verifyPlaylistRunsResponse
+        from: runsApi
         verify:
-          - value: '[{"id":"default","isBuiltIn":true,"name":"Defaultt","path":"Defaultt","description":"Default workspace of the tenant.","accessType":"Public","ownerId":""}]'
+          - jsonPath: $.total
+            value: 1
+          - jsonPath: $.items[0].id
+            value: d6ddeb82-58ca-4463-b8fc-70a6de81bee3
+          - jsonPath: $.items[0].playlistName
+            value: Tosca On-prem Test Playlist
+          - jsonPath: $.items[0].state
+            value: failed

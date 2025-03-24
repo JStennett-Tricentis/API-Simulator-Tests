@@ -1,27 +1,40 @@
 schema: SimV1
-name: default
+name: toscaCloudOrganization
 
 connections:
-  - name: organization
-    port: 28888
+  - name: organizationApi
+    port: 21001
+    listen: true
 
 services:
-  - name: tenants
+  - name: tenantsService
+    description: Simulates the Tosca Cloud Tenants API
     steps:
       - direction: In
+        name: receiveTenantRequest
+        from: organizationApi
         trigger:
-          - uri: "/internalApi/v1/tenants"
+          - type: Path
+            value: "/internalApi/v1/tenants"
       - direction: Out
+        name: sendTenantResponse
+        to: organizationApi
         message:
           payload: |-
             [{"name":"fusionx","region":"neu","spoke":"tplat-neu-dev-003","organizationId":"b76f8d83-bf0d-49d5-8800-e69b5ab21768","internal":true}]
 
-  - name: spaces
+  - name: spacesService
+    description: Simulates the Tosca Cloud Spaces API
     steps:
       - direction: In
+        name: receiveSpacesRequest
+        from: organizationApi
         trigger:
-          - uri: "/internalApi/v1/tenants/fusionx/spaces"
+          - type: Path
+            value: "/internalApi/v1/tenants/fusionx/spaces"
       - direction: Out
+        name: sendSpacesResponse
+        to: organizationApi
         message:
           payload: |-
             [{"id":"default","isBuiltIn":true,"name":"Defaultt","path":"Defaultt","description":"Default workspace of the tenant.","accessType":"Public","ownerId":""}]

@@ -3,7 +3,7 @@ name: toscaCloudExecutionsSearchTest
 
 connections:
   - name: executionsSearchApi
-    endpoint: http://localhost:18003
+    endpoint: http://localhost:20003
     listen: false
 
 services:

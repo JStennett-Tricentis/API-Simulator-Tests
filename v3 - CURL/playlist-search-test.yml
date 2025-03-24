@@ -3,7 +3,7 @@ name: toscaCloudPlaylistsSearchTest
 
 connections:
   - name: playlistsSearchApi
-    endpoint: http://localhost:18002
+    endpoint: http://localhost:20002
     listen: false
 
 services:
