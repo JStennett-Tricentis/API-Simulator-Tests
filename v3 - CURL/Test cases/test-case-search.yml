@@ -1,0 +1,84 @@
+schema: SimV1
+name: toscaCloudTestCaseSearch
+
+connections:
+  - name: testCaseSearchApi
+    port: 20010
+
+services:
+  - name: testCaseSearchService
+    description: Simulates the Tosca Cloud Test Case Search API
+    steps:
+      - direction: In
+        name: receiveTestCaseSearchRequest
+        trigger:
+          - type: Path
+            value: /_testcases/api/v2/testCases/search
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+          - name: requestPayload
+            type: Payload
+
+      - direction: Out
+        name: sendTestCaseSearchResponse
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |
+            {
+              "items": [
+                {
+                  "id": "c862507e-2d60-4ac7-8fb2-db0e9eadd2b9",
+                  "name": "Login Test",
+                  "path": "\\Samples\\Authentication\\Login Test",
+                  "description": "Verifies user can log in with valid credentials",
+                  "spaceId": "95e9d173-8cac-482a-a62f-c5a6483daca6",
+                  "createdAt": "2025-01-15T10:21:32.423Z",
+                  "updatedAt": "2025-03-20T14:17:55.989Z",
+                  "createdBy": "00u90zmxjqLe3vVbh0x7",
+                  "updatedBy": "00u90zmxjqLe3vVbh0x7",
+                  "tags": ["authentication", "login"],
+                  "labels": ["critical"],
+                  "version": 3
+                },
+                {
+                  "id": "a5e1bc42-9f87-4d23-b6a1-f8c76e1d59f3",
+                  "name": "Registration Form",
+                  "path": "\\Samples\\User Management\\Registration Form",
+                  "description": "Tests the user registration process",
+                  "spaceId": "95e9d173-8cac-482a-a62f-c5a6483daca6",
+                  "createdAt": "2025-01-18T09:32:14.765Z",
+                  "updatedAt": "2025-03-15T16:43:22.112Z",
+                  "createdBy": "00u90zmxjqLe3vVbh0x7",
+                  "updatedBy": "00u90zmxjqLe3vVbh0x7",
+                  "tags": ["registration", "forms"],
+                  "labels": ["medium"],
+                  "version": 2
+                },
+                {
+                  "id": "f7c93d81-3eb5-4a09-8e52-429bf6d19ca8",
+                  "name": "Shopping Cart Checkout",
+                  "path": "\\Samples\\E-commerce\\Shopping Cart Checkout",
+                  "description": "Validates the shopping cart checkout process",
+                  "spaceId": "95e9d173-8cac-482a-a62f-c5a6483daca6",
+                  "createdAt": "2025-02-05T11:45:08.329Z",
+                  "updatedAt": "2025-03-22T10:12:36.774Z",
+                  "createdBy": "00u90zmxjqLe3vVbh0x7",
+                  "updatedBy": "00u90zmxjqLe3vVbh0x7",
+                  "tags": ["e-commerce", "checkout"],
+                  "labels": ["critical"],
+                  "version": 5
+                }
+              ],
+              "totalCount": 3,
+              "continuationToken": null
+            }
