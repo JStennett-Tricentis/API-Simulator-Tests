@@ -1,0 +1,45 @@
+schema: SimV1
+name: toscaCloudSpaces
+
+connections:
+  - name: spacesApi
+    port: 20007
+
+services:
+  - name: spacesService
+    description: Simulates the Tosca Cloud Spaces API that returns available spaces for a tenant
+    steps:
+      - direction: In
+        name: receiveSpacesRequest
+        trigger:
+          - type: Path
+            value: /internalApi/v1/tenants/fusionx/spaces
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+
+      - direction: Out
+        name: sendSpacesResponse
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |
+            [
+              {
+                "id": "default",
+                "isBuiltIn": true,
+                "name": "Default",
+                "path": "Default",
+                "description": "Default workspace of the tenant.",
+                "accessType": "Public",
+                "ownerId": ""
+              }
+            ]

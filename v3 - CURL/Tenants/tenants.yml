@@ -1,0 +1,43 @@
+schema: SimV1
+name: toscaCloudTenants
+
+connections:
+  - name: tenantsApi
+    port: 20006
+
+services:
+  - name: tenantsService
+    description: Simulates the Tosca Cloud Tenants API that returns available tenants
+    steps:
+      - direction: In
+        name: receiveTenantsRequest
+        trigger:
+          - type: Path
+            value: /internalApi/v1/tenants
+        buffer:
+          - name: requestToken
+            type: Header
+            key: Authorization
+          - name: requestId
+            type: Header
+            key: request-id
+          - name: traceparent
+            type: Header
+            key: traceparent
+
+      - direction: Out
+        name: sendTenantsResponse
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |
+            [
+              {
+                "name": "fusionx",
+                "region": "neu",
+                "spoke": "tplat-neu-dev-003",
+                "organizationId": "b76f8d83-bf0d-49d5-8800-e69b5ab21768",
+                "internal": true
+              }
+            ]
