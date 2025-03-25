@@ -1,0 +1,30 @@
+schema: SimV1
+name: toscaCloudPlaylistCreate
+
+connections:
+  - name: playlistCreateApi
+    port: 20013
+
+services:
+  - name: playlistCreateService
+    description: Simulates the Tosca Cloud Playlist Creation API
+    steps:
+      - direction: In
+        name: receivePlaylistCreateRequest
+        trigger:
+          - type: Path
+            value: /_playlists/api/v2/playlists
+
+      - direction: Out
+        name: sendPlaylistCreateResponse
+        buffer:
+          - name: playlistId
+            value: "{UUID}"
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |
+            {
+              "id": "{B[playlistId]}"
+            }

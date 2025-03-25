@@ -13,18 +13,9 @@ services:
       - direction: Out
         name: sendWorkspacesRequest
         to: workspacesApi
-        buffer:
-          - name: testToken
-            value: "Bearer TOKEN"
         insert:
           - type: Path
             value: /_core/api/organization/v1/spaces
-          - type: Header
-            key: Authorization
-            value: "{B[testToken]}"
-          - type: Header
-            key: Accept
-            value: "*/*"
 
       - direction: In
         name: verifyWorkspacesResponse
@@ -45,35 +36,9 @@ services:
       - direction: Out
         name: sendWorkspacesRequestWithHeaders
         to: workspacesApi
-        buffer:
-          - name: requestId
-            value: "c178257ac8d14ffea29fc743bd3e0876"
-          - name: parentId
-            value: "b7669a64294c4471"
         insert:
           - type: Path
             value: /_core/api/organization/v1/spaces
-          - type: Header
-            key: Accept
-            value: "*/*"
-          - type: Header
-            key: Accept-Language
-            value: "en-US,en;q=0.9"
-          - type: Header
-            key: Connection
-            value: "keep-alive"
-          - type: Header
-            key: Referer
-            value: "https://fusionx.my-dev.tricentis.com/_portal/space/FusionX/home"
-          - type: Header
-            key: Authorization
-            value: "Bearer TOKEN"
-          - type: Header
-            key: request-id
-            value: "|{B[requestId]}.{B[parentId]}"
-          - type: Header
-            key: traceparent
-            value: "00-{B[requestId]}-{B[parentId]}-01"
 
       - direction: In
         name: verifyFullResponse

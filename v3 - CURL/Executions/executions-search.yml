@@ -14,17 +14,6 @@ services:
         trigger:
           - type: Path
             value: /_e2g/api/executions/search
-        buffer:
-          - name: requestToken
-            type: Header
-            key: Authorization
-          - name: requestPayload
-          - name: requestId
-            type: Header
-            key: request-id
-          - name: traceparent
-            type: Header
-            key: traceparent
 
       - direction: Out
         name: sendExecutionsSearchResponse

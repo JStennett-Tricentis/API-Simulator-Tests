@@ -1,0 +1,36 @@
+schema: SimV1
+name: toscaCloudTestCaseCreate
+
+connections:
+  - name: testCaseCreateApi
+    port: 20012
+
+services:
+  - name: testCaseCreateService
+    description: Simulates the Tosca Cloud Test Case Creation API
+    steps:
+      - direction: In
+        name: receiveTestCaseCreateRequest
+        trigger:
+          - type: Path
+            value: /_mbt/api/v2/builder/testcases
+
+      - direction: Out
+        name: sendTestCaseCreateResponse
+        buffer:
+          - name: testCaseId
+            value: "{UUID}"
+        message:
+          headers:
+            - key: Server
+              value: Kestrel
+          payload: |
+            {
+              "id": "{B[testCaseId]}",
+              "name": "{B[testCaseName]}",
+              "description": "",
+              "createdBy": "Tricentis_Cloud_API",
+              "createdAt": "{NOW}",
+              "updatedBy": "Tricentis_Cloud_API",
+              "updatedAt": "{NOW}"
+            }

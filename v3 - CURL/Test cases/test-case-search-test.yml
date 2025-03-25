@@ -13,29 +13,9 @@ services:
       - direction: Out
         name: sendTestCaseSearchRequest
         to: testCaseSearchApi
-        buffer:
-          - name: requestId
-            value: "d8e2f17ac5b34a69b73ce5218f07d324"
-          - name: parentId
-            value: "a9b58c72fdea6543"
         insert:
           - type: Path
             value: /_testcases/api/v2/testCases/search
-          - type: Header
-            key: Authorization
-            value: "Bearer TOKEN"
-          - type: Header
-            key: Accept
-            value: "*/*"
-          - type: Header
-            key: Content-Type
-            value: "application/json"
-          - type: Header
-            key: request-id
-            value: "|{B[requestId]}.{B[parentId]}"
-          - type: Header
-            key: traceparent
-            value: "00-{B[requestId]}-{B[parentId]}-01"
           - type: Payload
             value: |
               {
@@ -53,7 +33,7 @@ services:
           - jsonPath: $.items
             exists: true
           - jsonPath: $.totalCount
-            value: 3
+            value: 2
           - jsonPath: $.items[0].id
             value: f7c93d81-3eb5-4a09-8e52-429bf6d19ca8
           - jsonPath: $.items[0].name
@@ -67,38 +47,9 @@ services:
       - direction: Out
         name: sendTestCaseSearchWithFilters
         to: testCaseSearchApi
-        buffer:
-          - name: requestId
-            value: "e8f3a29bcd45a78c1936e4217d08c453"
-          - name: parentId
-            value: "b7c49d83efab5624"
         insert:
           - type: Path
             value: /_testcases/api/v2/testCases/search
-          - type: Header
-            key: Accept
-            value: "*/*"
-          - type: Header
-            key: Accept-Language
-            value: "en-US,en;q=0.9"
-          - type: Header
-            key: Content-Type
-            value: "application/json"
-          - type: Header
-            key: Connection
-            value: "keep-alive"
-          - type: Header
-            key: Referer
-            value: "https://fusionx.my-dev.tricentis.com/_portal/space/Samples/testcases"
-          - type: Header
-            key: Authorization
-            value: "Bearer TOKEN"
-          - type: Header
-            key: request-id
-            value: "|{B[requestId]}.{B[parentId]}"
-          - type: Header
-            key: traceparent
-            value: "00-{B[requestId]}-{B[parentId]}-01"
           - type: Payload
             value: |
               {

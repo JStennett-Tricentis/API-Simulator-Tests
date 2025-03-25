@@ -1,0 +1,39 @@
+schema: SimV1
+name: toscaCloudPlaylistCreateTest
+
+connections:
+  - name: playlistCreateApi
+    endpoint: http://localhost:20013
+    listen: false
+
+services:
+  - name: testPlaylistCreateBasic
+    description: Basic test for the Tosca Cloud Playlist Creation API
+    steps:
+      - direction: Out
+        name: sendPlaylistCreateRequest
+        to: playlistCreateApi
+        insert:
+          - type: Path
+            value: /_playlists/api/v2/playlists
+          - type: Payload
+            value: |
+              {
+                "name": "Tosca Simple Passing Test",
+                "description": "A simple playlist that will always passes.",
+                "items": [
+                  {
+                    "$type": "InputTestCaseV1",
+                    "id": "{B[testCaseId]}",
+                    "sourceId": "IywphvsBQkyN3s6QAasARQ",
+                    "disabled": false
+                  }
+                ]
+              }
+
+      - direction: In
+        name: verifyPlaylistCreateResponse
+        from: playlistCreateApi
+        verify:
+          - jsonPath: $.id
+            exists: true

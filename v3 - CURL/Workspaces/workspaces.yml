@@ -14,11 +14,6 @@ services:
         trigger:
           - type: Path
             value: /_core/api/organization/v1/spaces
-        buffer:
-          - name: requestToken
-            type: Header
-            key: Authorization
-          - name: requestPayload
 
       - direction: Out
         name: sendWorkspacesResponse

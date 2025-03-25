@@ -13,26 +13,9 @@ services:
       - direction: Out
         name: sendPlaylistRecentRunsRequest
         to: playlistRecentRunsApi
-        buffer:
-          - name: requestId
-            value: "3945c58b8f31440e8191831dd5a24675"
-          - name: parentId
-            value: "046466fe614440dc"
         insert:
           - type: Path
             value: /_playlists/api/v2/playlistRuns/recentRuns
-          - type: Header
-            key: Authorization
-            value: "Bearer TOKEN"
-          - type: Header
-            key: Accept
-            value: "*/*"
-          - type: Header
-            key: request-id
-            value: "|{B[requestId]}.{B[parentId]}"
-          - type: Header
-            key: traceparent
-            value: "00-{B[requestId]}-{B[parentId]}-01"
           - type: Payload
             value: |
               {"limit":1,"playlistIds":["5aa77b0b-ca14-41eb-a20b-60b22473c405","6426cfa3-07ef-4521-9111-f574d999273a","b2b920b4-aa05-4d18-b080-96625ee1d2bd"]}

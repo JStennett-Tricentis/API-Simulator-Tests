@@ -1,0 +1,64 @@
+schema: SimV1
+name: toscaCloudTestCaseCreateTest
+
+connections:
+  - name: testCaseCreateApi
+    endpoint: http://localhost:20012
+    listen: false
+
+services:
+  - name: testTestCaseCreateBasic
+    description: Basic test for the Tosca Cloud Test Case Creation API
+    steps:
+      - direction: Out
+        name: sendTestCaseCreateRequest
+        to: testCaseCreateApi
+        insert:
+          - type: Path
+            value: /_mbt/api/v2/builder/testcases
+          - type: Payload
+            value: |
+              {
+                "name": "Automated Test Case",
+                "workState": "Planned",
+                "testCaseItems": [
+                  {
+                    "$type": "TestStepV2",
+                    "id": "55a453d9-8911-4301-b7ff-e1dd29fdc15f",
+                    "name": "TBox Evaluation Tool",
+                    "disabled": false,
+                    "moduleReference": {
+                      "id": "39bf5646-aaa6-4944-9897-1373265a2cc6"
+                    },
+                    "testStepValues": [
+                      {
+                        "id": "b34d1975-14b5-4620-b050-24b316d6dec3",
+                        "name": "Expression",
+                        "value": "True==True",
+                        "actionMode": "Verify",
+                        "dataType": "String",
+                        "moduleAttributeReference": {
+                          "id": "39e342b2-958e-5d75-e936-e94d438d7aad",
+                          "moduleId": "39bf5646-aaa6-4944-9897-1373265a2cc6"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "testConfigurationParameters": []
+              }
+
+      - direction: In
+        name: verifyTestCaseCreateResponse
+        from: testCaseCreateApi
+        buffer:
+          - name: createdTestCaseId
+            type: Path
+            jsonPath: $.id
+        verify:
+          - jsonPath: $.name
+            value: Automated Test Case
+          - jsonPath: $.id
+            exists: true
+          - jsonPath: $.createdBy
+            value: Tricentis_Cloud_API

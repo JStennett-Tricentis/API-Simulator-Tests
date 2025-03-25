@@ -13,26 +13,9 @@ services:
       - direction: Out
         name: sendTestCaseRunsRequest
         to: testCaseRunsApi
-        buffer:
-          - name: requestId
-            value: "6f59c213af77477fb27e9d09a29bd503"
-          - name: parentId
-            value: "1d6378f9e1dc4a3b"
         insert:
           - type: Path
             value: /api/v2/testCaseRuns/search
-          - type: Header
-            key: Authorization
-            value: "Bearer TOKEN"
-          - type: Header
-            key: Accept
-            value: "*/*"
-          - type: Header
-            key: request-id
-            value: "|{B[requestId]}.{B[parentId]}"
-          - type: Header
-            key: traceparent
-            value: "00-{B[requestId]}-{B[parentId]}-01"
 
       - direction: In
         name: verifyTestCaseRunsResponse

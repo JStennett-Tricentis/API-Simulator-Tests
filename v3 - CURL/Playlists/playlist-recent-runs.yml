@@ -14,17 +14,6 @@ services:
         trigger:
           - type: Path
             value: /_playlists/api/v2/playlistRuns/recentRuns
-        buffer:
-          - name: requestToken
-            type: Header
-            key: Authorization
-          - name: requestPayload
-          - name: requestId
-            type: Header
-            key: request-id
-          - name: traceparent
-            type: Header
-            key: traceparent
 
       - direction: Out
         name: sendPlaylistRecentRunsResponse
@@ -52,16 +41,6 @@ services:
                     "createdAt": "2025-03-21T08:00:11.722Z",
                     "updatedAt": "2025-03-21T08:29:52.562Z",
                     "createdBy": "PlaylistService",
-                    "state": "failed"
-                },
-                {
-                    "id": "8ab00a01-1c76-4b2d-b390-4756b746e8bb",
-                    "playlistId": "b2b920b4-aa05-4d18-b080-96625ee1d2bd",
-                    "playlistName": "Dashboard - \"Recently edited\" Tests",
-                    "private": false,
-                    "createdAt": "2025-03-18T14:16:41.991Z",
-                    "updatedAt": "2025-03-18T14:18:44.854Z",
-                    "createdBy": "00u90zmxjqLe3vVbh0x7",
                     "state": "failed"
                 }
             ]

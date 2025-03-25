@@ -13,28 +13,9 @@ services:
       - direction: Out
         name: sendSpacesRequest
         to: spacesApi
-        buffer:
-          - name: requestId
-            value: "a289346bc7e25ffedb18fd644ce4f765"
-          - name: parentId
-            value: "d8759b73285d4571"
-          - name: tenantName
-            value: "fusionx"
         insert:
           - type: Path
             value: /internalApi/v1/tenants/fusionx/spaces
-          - type: Header
-            key: Authorization
-            value: "Bearer TOKEN"
-          - type: Header
-            key: Accept
-            value: "*/*"
-          - type: Header
-            key: request-id
-            value: "|{B[requestId]}.{B[parentId]}"
-          - type: Header
-            key: traceparent
-            value: "00-{B[requestId]}-{B[parentId]}-01"
 
       - direction: In
         name: verifySpacesResponse
@@ -55,37 +36,9 @@ services:
       - direction: Out
         name: sendSpacesRequestWithHeaders
         to: spacesApi
-        buffer:
-          - name: requestId
-            value: "e187346bc9e25ffedb28fd644ce4f987"
-          - name: parentId
-            value: "f8759b73285d5682"
-          - name: tenantName
-            value: "fusionx"
         insert:
           - type: Path
             value: /internalApi/v1/tenants/fusionx/spaces
-          - type: Header
-            key: Accept
-            value: "*/*"
-          - type: Header
-            key: Accept-Language
-            value: "en-US,en;q=0.9"
-          - type: Header
-            key: Connection
-            value: "keep-alive"
-          - type: Header
-            key: Referer
-            value: "https://fusionx.my-dev.tricentis.com/_portal/tenant/fusionx"
-          - type: Header
-            key: Authorization
-            value: "Bearer TOKEN"
-          - type: Header
-            key: request-id
-            value: "|{B[requestId]}.{B[parentId]}"
-          - type: Header
-            key: traceparent
-            value: "00-{B[requestId]}-{B[parentId]}-01"
 
       - direction: In
         name: verifyFullResponse

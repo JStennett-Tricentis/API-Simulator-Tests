@@ -14,18 +14,6 @@ services:
         trigger:
           - type: Path
             value: /_testcases/api/v2/testCases/search
-        buffer:
-          - name: requestToken
-            type: Header
-            key: Authorization
-          - name: requestId
-            type: Header
-            key: request-id
-          - name: traceparent
-            type: Header
-            key: traceparent
-          - name: requestPayload
-            type: Payload
 
       - direction: Out
         name: sendTestCaseSearchResponse
@@ -63,22 +51,8 @@ services:
                   "tags": ["registration", "forms"],
                   "labels": ["medium"],
                   "version": 2
-                },
-                {
-                  "id": "f7c93d81-3eb5-4a09-8e52-429bf6d19ca8",
-                  "name": "Shopping Cart Checkout",
-                  "path": "\\Samples\\E-commerce\\Shopping Cart Checkout",
-                  "description": "Validates the shopping cart checkout process",
-                  "spaceId": "95e9d173-8cac-482a-a62f-c5a6483daca6",
-                  "createdAt": "2025-02-05T11:45:08.329Z",
-                  "updatedAt": "2025-03-22T10:12:36.774Z",
-                  "createdBy": "00u90zmxjqLe3vVbh0x7",
-                  "updatedBy": "00u90zmxjqLe3vVbh0x7",
-                  "tags": ["e-commerce", "checkout"],
-                  "labels": ["critical"],
-                  "version": 5
                 }
               ],
-              "totalCount": 3,
+              "totalCount": 2,
               "continuationToken": null
             }

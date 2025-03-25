@@ -14,16 +14,6 @@ services:
         trigger:
           - type: Path
             value: "/api/v2/testCaseRuns/search"
-        buffer:
-          - name: requestToken
-            type: Header
-            key: Authorization
-          - name: requestId
-            type: Header
-            key: request-id
-          - name: traceparent
-            type: Header
-            key: traceparent
 
       - direction: Out
         name: sendTestCaseRunsResponse
@@ -33,7 +23,7 @@ services:
               value: Kestrel
           payload: |-
             {
-              "total": 3,
+              "total": 2,
               "items": [
                 {
                   "id": "5bae1f1a-ba66-40a6-9871-bc123e5df377",
@@ -56,18 +46,6 @@ services:
                   "unitId": "41da3a3c-a672-4f82-8404-0b93c0268136",
                   "state": "failed",
                   "updatedAt": "2025-01-17T17:49:42.463Z",
-                  "createdAt": "2025-01-17T17:49:38.701Z",
-                  "createdBy": "00u90zj2tmQA89tCs0x7"
-                },
-                {
-                  "id": "becc7582-5fc0-4c7d-8869-584571f84a7f",
-                  "playlistRunId": "d6ddeb82-58ca-4463-b8fc-70a6de81bee3",
-                  "testCaseId": "d220212a-edea-48e4-98c3-7bd509d81896",
-                  "sourceId": "Xi75D9YP-ka7wha2GgtN1w",
-                  "displayName": "Unnamed Test Case",
-                  "unitId": "367148fe-9b74-40bf-a513-34fdce9ae285",
-                  "state": "succeeded",
-                  "updatedAt": "2025-01-17T17:50:00.36Z",
                   "createdAt": "2025-01-17T17:49:38.701Z",
                   "createdBy": "00u90zj2tmQA89tCs0x7"
                 }
