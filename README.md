@@ -4,10 +4,10 @@
 
 API Simulator is a Tricentis Cloud tool that provides service virtualization capabilities, allowing teams to:
 
-- Simulate complex service interactions
-- Test applications without relying on actual services
-- Create reproducible testing environments
-- Accelerate development and testing processes
+- Simulate complex service interactions.
+- Test applications without relying on actual services.
+- Create reproducible testing environments.
+- Accelerate development and testing processes.
 
 ## Setup
 
