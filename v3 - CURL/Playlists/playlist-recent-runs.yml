@@ -23,24 +23,24 @@ services:
               value: Kestrel
           payload: |
             [
-                {
-                    "id": "edc46425-54f6-4497-a0e1-65d090c27afd",
-                    "playlistId": "5aa77b0b-ca14-41eb-a20b-60b22473c405",
-                    "playlistName": "WIP",
-                    "private": false,
-                    "createdAt": "2025-03-18T14:39:07.845Z",
-                    "updatedAt": "2025-03-18T14:40:29.318Z",
-                    "createdBy": "00u90zmxjqLe3vVbh0x7",
-                    "state": "failed"
-                },
-                {
-                    "id": "f20338b6-a16f-461f-85d2-ea3def100f6a",
-                    "playlistId": "6426cfa3-07ef-4521-9111-f574d999273a",
-                    "playlistName": "Dashboard - Primary Tests",
-                    "private": false,
-                    "createdAt": "2025-03-21T08:00:11.722Z",
-                    "updatedAt": "2025-03-21T08:29:52.562Z",
-                    "createdBy": "PlaylistService",
-                    "state": "failed"
-                }
+              {
+                  "id": "edc46425-54f6-4497-a0e1-65d090c27afd",
+                  "playlistId": "5aa77b0b-ca14-41eb-a20b-60b22473c405",
+                  "playlistName": "WIP",
+                  "private": false,
+                  "createdAt": "2025-03-18T14:39:07.845Z",
+                  "updatedAt": "2025-03-18T14:40:29.318Z",
+                  "createdBy": "00u90zmxjqLe3vVbh0x7",
+                  "state": "failed"
+              },
+              {
+                  "id": "f20338b6-a16f-461f-85d2-ea3def100f6a",
+                  "playlistId": "6426cfa3-07ef-4521-9111-f574d999273a",
+                  "playlistName": "Dashboard - Primary Tests",
+                  "private": false,
+                  "createdAt": "2025-03-21T08:00:11.722Z",
+                  "updatedAt": "2025-03-21T08:29:52.562Z",
+                  "createdBy": "PlaylistService",
+                  "state": "failed"
+              }
             ]

@@ -19,16 +19,9 @@ services:
           - type: Payload
             value: |
               {
-                "name": "Tosca Simple Passing Test",
-                "description": "A simple playlist that will always passes.",
-                "items": [
-                  {
-                    "$type": "InputTestCaseV1",
-                    "id": "{B[testCaseId]}",
-                    "sourceId": "IywphvsBQkyN3s6QAasARQ",
-                    "disabled": false
-                  }
-                ]
+                "name": "Basic Playlist",
+                "description": "A basic playlist.",
+                "items": []
               }
 
       - direction: In

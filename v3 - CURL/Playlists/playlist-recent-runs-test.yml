@@ -18,7 +18,14 @@ services:
             value: /_playlists/api/v2/playlistRuns/recentRuns
           - type: Payload
             value: |
-              {"limit":1,"playlistIds":["5aa77b0b-ca14-41eb-a20b-60b22473c405","6426cfa3-07ef-4521-9111-f574d999273a","b2b920b4-aa05-4d18-b080-96625ee1d2bd"]}
+              {
+                "limit": 1,
+                "playlistIds": [
+                  "5aa77b0b-ca14-41eb-a20b-60b22473c405",
+                  "6426cfa3-07ef-4521-9111-f574d999273a",
+                  "b2b920b4-aa05-4d18-b080-96625ee1d2bd"
+                ]
+              }
 
       - direction: In
         name: verifyPlaylistRecentRunsResponse

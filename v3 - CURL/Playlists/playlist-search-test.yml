@@ -18,7 +18,23 @@ services:
             value: /_playlists/api/v2/playlists/search
           - type: Payload
             value: |
-              {"filter":{"items":[{"field":"updatedBy","value":"00u90zmxjqLe3vVbh0x7","operator":"equals"},{"field":"updatedAt","value":"2025-03-15T05:00:00.000Z","operator":"greaterThanOrEqual"}]},"pageToken":null}
+              {
+                "filter": {
+                  "items": [
+                    {
+                      "field": "updatedBy",
+                      "value": "00u90zmxjqLe3vVbh0x7",
+                      "operator": "equals"
+                    },
+                    {
+                      "field": "updatedAt",
+                      "value": "2025-03-15T05:00:00.000Z",
+                      "operator": "greaterThanOrEqual"
+                    }
+                  ]
+                },
+                "pageToken": null
+              }
 
       - direction: In
         name: verifyPlaylistsSearchResponse
