@@ -14,17 +14,6 @@ services:
         trigger:
           - type: Path
             value: /_playlists/api/v2/playlists/search
-        buffer:
-          - name: requestToken
-            type: Header
-            key: Authorization
-          - name: requestPayload
-          - name: requestId
-            type: Header
-            key: request-id
-          - name: traceparent
-            type: Header
-            key: traceparent
 
       - direction: Out
         name: sendPlaylistsSearchResponse
@@ -34,7 +23,7 @@ services:
               value: Kestrel
           payload: |
             {
-                "total": 13,
+                "total": 2,
                 "items": [
                     {
                         "id": "5aa77b0b-ca14-41eb-a20b-60b22473c405",
