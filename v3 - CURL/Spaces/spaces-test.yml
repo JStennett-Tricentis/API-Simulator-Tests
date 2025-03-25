@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testSpacesApiBasic
-    description: Basic test for the Tosca Cloud Spaces API
+    description: Basic test for the Tosca Cloud Spaces API.
     steps:
       - direction: Out
         name: sendSpacesRequest
@@ -31,7 +31,7 @@ services:
             value: true
 
   - name: testSpacesApiWithHeaders
-    description: Test with full request headers for the Tosca Cloud Spaces API
+    description: Test with full request headers for the Tosca Cloud Spaces API.
     steps:
       - direction: Out
         name: sendSpacesRequestWithHeaders

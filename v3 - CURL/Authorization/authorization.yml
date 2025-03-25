@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: authorizationService
-    description: Simulates the Tosca Cloud Authorization API
+    description: Simulates the Tosca Cloud Authorization API.
     steps:
       - direction: In
         name: receiveAuthorizationRequest

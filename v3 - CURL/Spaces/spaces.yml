@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: spacesService
-    description: Simulates the Tosca Cloud Spaces API that returns available spaces for a tenant
+    description: Simulates the Tosca Cloud Spaces API that returns available spaces for a tenant.
     steps:
       - direction: In
         name: receiveSpacesRequest

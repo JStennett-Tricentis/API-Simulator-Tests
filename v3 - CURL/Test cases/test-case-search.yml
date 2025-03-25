@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: testCaseSearchService
-    description: Simulates the Tosca Cloud Test Case Search API
+    description: Simulates the Tosca Cloud Test Case Search API.
     steps:
       - direction: In
         name: receiveTestCaseSearchRequest

@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testTestCaseCreateBasic
-    description: Basic test for the Tosca Cloud Test Case Creation API
+    description: Basic test for the Tosca Cloud Test Case Creation API.
     steps:
       - direction: Out
         name: sendTestCaseCreateRequest

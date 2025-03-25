@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: playlistCreateService
-    description: Simulates the Tosca Cloud Playlist Creation API
+    description: Simulates the Tosca Cloud Playlist Creation API.
     steps:
       - direction: In
         name: receivePlaylistCreateRequest

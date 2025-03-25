@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: tenantsService
-    description: Simulates the Tosca Cloud Tenants API that returns available tenants
+    description: Simulates the Tosca Cloud Tenants API that returns available tenants.
     steps:
       - direction: In
         name: receiveTenantsRequest

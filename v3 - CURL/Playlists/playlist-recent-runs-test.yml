@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testPlaylistRecentRunsBasic
-    description: Basic test for the Tosca Cloud Playlist Recent Runs API
+    description: Basic test for the Tosca Cloud Playlist Recent Runs API.
     steps:
       - direction: Out
         name: sendPlaylistRecentRunsRequest

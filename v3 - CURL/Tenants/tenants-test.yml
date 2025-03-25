@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testTenantsApiBasic
-    description: Basic test for the Tosca Cloud Tenants API
+    description: Basic test for the Tosca Cloud Tenants API.
     steps:
       - direction: Out
         name: sendTenantsRequest
@@ -31,7 +31,7 @@ services:
             value: true
 
   - name: testTenantsApiWithHeaders
-    description: Test with full request headers for the Tosca Cloud Tenants API
+    description: Test with full request headers for the Tosca Cloud Tenants API.
     steps:
       - direction: Out
         name: sendTenantsRequestWithHeaders

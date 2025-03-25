@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testPlaylistCreateBasic
-    description: Basic test for the Tosca Cloud Playlist Creation API
+    description: Basic test for the Tosca Cloud Playlist Creation API.
     steps:
       - direction: Out
         name: sendPlaylistCreateRequest

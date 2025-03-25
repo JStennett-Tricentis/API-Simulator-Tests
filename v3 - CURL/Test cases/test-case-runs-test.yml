@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testTestCaseRunsService
-    description: Tests the Tosca Cloud Test Case Runs API
+    description: Tests the Tosca Cloud Test Case Runs API.
     steps:
       - direction: Out
         name: sendTestCaseRunsRequest

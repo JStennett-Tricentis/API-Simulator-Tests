@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: playlistRecentRunsService
-    description: Simulates the Tosca Cloud Playlist Recent Runs API
+    description: Simulates the Tosca Cloud Playlist Recent Runs API.
     steps:
       - direction: In
         name: receivePlaylistRecentRunsRequest

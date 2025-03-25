@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testTestCaseSearchBasic
-    description: Basic test for the Tosca Cloud Test Case Search API
+    description: Basic test for the Tosca Cloud Test Case Search API.
     steps:
       - direction: Out
         name: sendTestCaseSearchRequest
@@ -42,7 +42,7 @@ services:
             value: Registration Form
 
   - name: testTestCaseSearchWithFilters
-    description: Test with filters for the Tosca Cloud Test Case Search API
+    description: Test with filters for the Tosca Cloud Test Case Search API.
     steps:
       - direction: Out
         name: sendTestCaseSearchWithFilters

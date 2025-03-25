@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: testCaseCreateService
-    description: Simulates the Tosca Cloud Test Case Creation API
+    description: Simulates the Tosca Cloud Test Case Creation API.
     steps:
       - direction: In
         name: receiveTestCaseCreateRequest

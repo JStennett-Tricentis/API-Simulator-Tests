@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: testCaseRunsService
-    description: Simulates the Tosca Cloud Test Case Runs API
+    description: Simulates the Tosca Cloud Test Case Runs API.
     steps:
       - direction: In
         name: receiveTestCaseRunsRequest

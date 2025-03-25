@@ -1,2 +1,5 @@
-AllExamplesWorkspaces/*
 .DS_Store
+
+docs/Formatting/*
+!docs/Formatting/formatting-standard.md
+!docs/Formatting/port-list.md

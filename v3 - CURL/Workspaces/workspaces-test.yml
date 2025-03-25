@@ -8,7 +8,7 @@ connections:
 
 services:
   - name: testWorkspacesApiBasic
-    description: Basic test for the Tosca Cloud Workspaces API
+    description: Basic test for the Tosca Cloud Workspaces API.
     steps:
       - direction: Out
         name: sendWorkspacesRequest
@@ -31,7 +31,7 @@ services:
             value: Samples
 
   - name: testWorkspacesApiWithHeaders
-    description: Test with full request headers for the Tosca Cloud Workspaces API
+    description: Test with full request headers for the Tosca Cloud Workspaces API.
     steps:
       - direction: Out
         name: sendWorkspacesRequestWithHeaders

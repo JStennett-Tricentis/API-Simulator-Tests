@@ -7,7 +7,7 @@ connections:
 
 services:
   - name: playlistsSearchService
-    description: Simulates the Tosca Cloud Playlists Search API
+    description: Simulates the Tosca Cloud Playlists Search API.
     steps:
       - direction: In
         name: receivePlaylistsSearchRequest
