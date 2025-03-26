@@ -22,17 +22,23 @@ services:
                 "filter": {
                   "items": [
                     {
-                      "field": "updatedBy",
-                      "value": "00u90zmxjqLe3vVbh0x7",
-                      "operator": "equals"
+                      "field": "createdAt",
+                      "value": "2025-03-10T05:00:00.000Z",
+                      "operator": "greaterThanOrEqual"
                     },
                     {
-                      "field": "updatedAt",
+                      "field": "createdAt",
                       "value": "2025-03-15T05:00:00.000Z",
-                      "operator": "greaterThanOrEqual"
+                      "operator": "lessThanOrEqual"
                     }
                   ]
                 },
+                "sort": [
+                    {
+                      "field": "createdAt",
+                      "direction": 1
+                    }
+                ],
                 "pageToken": null
               }
 

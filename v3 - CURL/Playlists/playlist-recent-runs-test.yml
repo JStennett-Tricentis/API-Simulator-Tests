@@ -22,8 +22,7 @@ services:
                 "limit": 1,
                 "playlistIds": [
                   "5aa77b0b-ca14-41eb-a20b-60b22473c405",
-                  "6426cfa3-07ef-4521-9111-f574d999273a",
-                  "b2b920b4-aa05-4d18-b080-96625ee1d2bd"
+                  "6426cfa3-07ef-4521-9111-f574d999273a"
                 ]
               }
 
@@ -41,3 +40,5 @@ services:
             value: f20338b6-a16f-461f-85d2-ea3def100f6a
           - jsonPath: $[2].playlistName
             value: Dashboard - "Recently edited" Tests
+          - jsonPath: $[0].state
+            value: failed

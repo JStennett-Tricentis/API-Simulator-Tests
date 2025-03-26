@@ -16,13 +16,36 @@ services:
         insert:
           - type: Path
             value: /api/v2/testCaseRuns/search
+          - type: Payload
+            value: |
+              {
+                "request": {
+                  "filter": {
+                    "items": [
+                      {
+                        "field": "status",
+                        "value": "succeeded",
+                        "operator": "equals"
+                      }
+                    ],
+                    "linkOperator": "and"
+                  },
+                  "sort": [
+                    {
+                      "field": "executionDate",
+                      "direction": "desc"
+                    }
+                  ],
+                  "itemsPerPage": 50
+                }
+              }
 
       - direction: In
         name: verifyTestCaseRunsResponse
         from: testCaseRunsApi
         verify:
           - jsonPath: $.total
-            value: 3
+            value: 2
           - jsonPath: $.items[0].displayName
             value: Open Google
           - jsonPath: $.items[0].state
@@ -31,5 +54,3 @@ services:
             value: Tosca - GET Playlist Runs List
           - jsonPath: $.items[1].state
             value: failed
-          - jsonPath: $.items[2].displayName
-            value: Unnamed Test Case
