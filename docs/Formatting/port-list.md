@@ -10,8 +10,8 @@ This document lists all ports used by simulators in this project to avoid confli
 | data-driven-magic.yml | MagicUsersService | 26415 |
 | decisions/data-driven-where.yml | Decisions | 55513 |
 | decisions/conditions-trigger.yml | Conditions Trigger | 22622 |
-| Delay | delay-eval.yml | Delay Service | 15555 |
-| Dynamic | dynamic-state.yml | Virtual Order Service | 14323 |
+| delay-eval.yml | Delay Service | 15555 |
+| dynamic-state.yml | Virtual Order Service | 14323 |
 | v3 - CURL/Workspaces/workspaces.yml | Tosca Cloud Workspaces | 20001 |
 | v3 - CURL/Playlists/playlist-search.yml | Tosca Cloud Playlists Search | 20002 |
 | v3 - CURL/Executions/executions-search.yml | Tosca Cloud Executions Search | 20003 |
@@ -26,6 +26,7 @@ This document lists all ports used by simulators in this project to avoid confli
 | v3 - CURL/Test cases/test-case-create.yml | Tosca Cloud Test Case Creation | 20012 |
 | v3 - CURL/Playlists/playlist-create.yml | Tosca Cloud Playlist Creation | 20013 |
 | v3 - CURL/Integration/test-case-playlist-integration.yml | Test Case Playlist Integration | 20014 |
+| v3 - CURL/Integration/product-catalog.yml | Product Catalog Service | 21100 |
 | v2 - IRIS-to-Simulator/Organizations/organization.yml | Tosca Cloud Organization | 21001 |
 | v2 - IRIS-to-Simulator/Executions/execution.yml | Tosca Cloud Executions | 21002 |
 | v2 - IRIS-to-Simulator/Playlists/runs.yml | Tosca Cloud Runs | 21003 |
