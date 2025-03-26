@@ -2,36 +2,23 @@
 
 This document lists all ports used by simulators in this project to avoid conflicts.
 
-|File | Service | Port |
-|-----|---------|------|
-| buffer.yml | Dynamic Buffer | 16111 |
-| split-buffer.yml | Split Buffer | 16112 |
-| Ssimple-state.yml | ShoppingCartService | 17079 |
-| data-driven-magic.yml | MagicUsersService | 26415 |
-| decisions/data-driven-where.yml | Decisions | 55513 |
-| decisions/conditions-trigger.yml | Conditions Trigger | 22622 |
-| delay-eval.yml | Delay Service | 15555 |
-| dynamic-state.yml | Virtual Order Service | 14323 |
-| v3 - CURL/Workspaces/workspaces.yml | Tosca Cloud Workspaces | 20001 |
-| v3 - CURL/Playlists/playlist-search.yml | Tosca Cloud Playlists Search | 20002 |
-| v3 - CURL/Executions/executions-search.yml | Tosca Cloud Executions Search | 20003 |
-| v3 - CURL/Playlists/playlist-recent-runs.yml | Tosca Cloud Playlist Recent Runs | 20004 |
-| v3 - CURL/Authorization/authorization.yml | Tosca Cloud Authorization | 20005 |
-| v3 - CURL/Tenants/tenants.yml | Tosca Cloud Tenants | 20006 |
-| v3 - CURL/Spaces/spaces.yml | Tosca Cloud Spaces | 20007 |
-| v3 - CURL/Playlists/playlist-runs.yml | Tosca Cloud Playlist Runs | 20008 |
-| v3 - CURL/Test cases/test-case-runs.yml | Tosca Cloud Test Case Runs | 20009 |
-| v3 - CURL/Test cases/test-case-search.yml | Tosca Cloud Test Case Search | 20010 |
-| v3 - CURL/Troubleshooting/troubleshooting-example.yml | Troubleshooting Example | 20011 |
-| v3 - CURL/Test cases/test-case-create.yml | Tosca Cloud Test Case Creation | 20012 |
-| v3 - CURL/Playlists/playlist-create.yml | Tosca Cloud Playlist Creation | 20013 |
-| v3 - CURL/Integration/test-case-playlist-integration.yml | Test Case Playlist Integration | 20014 |
-| v3 - CURL/Integration/product-catalog.yml | Product Catalog Service | 21100 |
-| v2 - IRIS-to-Simulator/Organizations/organization.yml | Tosca Cloud Organization | 21001 |
-| v2 - IRIS-to-Simulator/Executions/execution.yml | Tosca Cloud Executions | 21002 |
-| v2 - IRIS-to-Simulator/Playlists/runs.yml | Tosca Cloud Runs | 21003 |
-| v2 - IRIS-to-Simulator/Inventory/inventory.yml | Tosca Cloud Inventory | 21004 |
-| v2 - IRIS-to-Simulator/Autorization/authorization.yml | Tosca Cloud Authorization | 21005 |
+| File | Service | Port |
+|------|---------|------|
+| `./Workspaces/workspaces.yml` | Tosca Cloud Workspaces | 20001 |
+| `./Playlists/playlist-search.yml` | Tosca Cloud Playlists Search | 20002 |
+| `./Executions/executions-search.yml` | Tosca Cloud Executions Search | 20003 |
+| `./Playlists/playlist-recent-runs.yml` | Tosca Cloud Playlist Recent Runs | 20004 |
+| `./Authorization/authorization.yml` | Tosca Cloud Authorization | 20005 |
+| `./Tenants/tenants.yml` | Tosca Cloud Tenants | 20006 |
+| `./Spaces/spaces.yml` | Tosca Cloud Spaces | 20007 |
+| `./Playlists/playlist-runs.yml` | Tosca Cloud Playlist Runs | 20008 |
+| `./Test cases/test-case-runs.yml` | Tosca Cloud Test Case Runs | 20009 |
+| `./Test cases/test-case-search.yml` | Tosca Cloud Test Case Search | 20010 |
+| `./Troubleshooting/troubleshooting-example.yml` | Troubleshooting Example | 20011 |
+| `./Test cases/test-case-create.yml` | Tosca Cloud Test Case Creation | 20012 |
+| `./Playlists/playlist-create.yml` | Tosca Cloud Playlist Creation | 20013 |
+| `./Integration/test-case-playlist-integration.yml` | Test Case Playlist Integration | 20014 |
+| `./Integration/product-catalog.yml` | Product Catalog Service | 21100 |
 
 ## Port Range Allocation Guidelines
 
