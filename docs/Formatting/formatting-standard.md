@@ -62,10 +62,10 @@ services:
 3. **Steps Format**
    - Always include a `name` for each step
    - Always include `direction: In` or `direction: Out` for each step
-   - **Service Files**: 
+   - **Service Files**
      - Do NOT include `from` or `to` in service definitions
      - Do NOT include `type: Method` in trigger definitions - use Path patterns instead
-   - **Test Files**: 
+   - **Test Files**
      - ALWAYS include `from` for incoming steps, `to` for outgoing steps
      - You CAN use `type: Method` in insert definitions
    - Group related steps together (request/response pairs)

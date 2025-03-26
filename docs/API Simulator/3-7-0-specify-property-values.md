@@ -418,9 +418,7 @@ The pattern includes:
 
 - ^: beginning of the line
 - \d{1,2}: day (one or two digits long)
-- [ /.-]: separators (space, forward slash, dot, or hyphen)
 - \d{1,2}: month (one or two digits)
-- [ /.-]: separators (space, forward slash, dot, or hyphen)
 - (\d{4}|\d{2}): year (two or four digits)
 - $: end of line
 
